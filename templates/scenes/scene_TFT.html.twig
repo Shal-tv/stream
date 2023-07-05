@@ -1,0 +1,44 @@
+{% extends 'scenes/base.html.twig' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+
+{% block body %}
+	<div class="row pt-vw-3">
+		<div class="col-9 ms-vw-2">
+			<div class="row">
+				<div class="col-4">
+					<div class="bg-darker shadow-white" style="height: 4.24vw;">
+						<div class="border-gradient h-100"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row pt-vw-3">
+		<div class="col-3 ms-vw-2">
+			<div class="bg-light shadow-white" style="width: 19.55vw; height: 7.21vw;">
+				<div class="border-gradient h-100"></div>
+			</div>
+			
+			{{ include('tft_tracker.html.twig') }}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="offset-9 col-3 position-fixed" style="bottom: 0.4vw; padding-left: 2.95vw; padding-right: 0.4vw;">
+			<!-- WEBCAM -->
+			<div style="height: 12.35vw;">
+				<div class="bg-dark shadow-white h-100">
+					<div class="border-gradient h-100"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

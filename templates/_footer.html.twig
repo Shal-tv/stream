@@ -1,0 +1,22 @@
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+
+{% block body %}
+	<!-- FOOTER -->
+	<footer class="bottom-0 position-fixed w-100" style="height: 50px;">
+		<span class="float-end fw-bold fs-4 text-light-cyan pt-1">
+			<img src="{{ asset('img/icons/calendar.png') }}" alt="calendar-icon" style="height: 25px;"/>
+			<span id="date" class="pe-5 align-middle"></span>
+			<img src="{{ asset('img/icons/clock.png') }}" alt="clock-icon" style="height: 25px;"/>
+			<span id="time" class="pe-5 align-middle"></span>
+		</span>
+		<div class="bg-dark shadow-white h-100">
+			<div class="border-gradient-top h-100"></div>
+		</div>
+	</footer>
+{% endblock %}

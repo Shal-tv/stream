@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+	<script type="module" src="{{ asset('js/three/main.js') }}" id="three-main" data-filename="/img/scenes/waiting-screen.jpg"></script>
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-9">
+			<div class="row pt-vw-4">
+				<!-- SONG -->
+				<div class="offset-2 col-4 mt-vw-4 mb-vw-4">
+					<div class="bg-dark shadow-white" style="height: 4.24vw;">
+						<div class="border-gradient h-100"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-vw-4 pt-vw-4 px-vw-4" style="height: 40vw;">
+				<!-- MESSAGE -->
+				<div class="h-100 d-flex align-items-center justify-content-center">
+					<h6>C'EST LA PAUSE</h6>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-3">
+			<div class="row pt-vw-4 pe-vw-4">
+				<!-- CHAT -->
+				<div style="height: 33vw; margin-top: 15.9vw;">
+					<div class="bg-dark shadow-white h-100">
+						<div class="border-gradient h-100"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

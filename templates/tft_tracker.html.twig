@@ -1,0 +1,172 @@
+{% block stylesheets %}
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.css') }}">
+
+	<!-- CUSTOM STYLES -->
+	<link rel="stylesheet" href="{{ asset('css/stream-style.css') }}">
+
+	<style>
+		#name {
+			font-size: 0.75vw;
+		}
+
+		#rank {
+			font-size: 1vw;
+		}
+
+		#LP {
+			font-size: 0.75vw;
+		}
+
+		.placement {
+			font-size: 0.75vw;
+		}
+
+		.placement-1 {
+			background-color: #cbb765 !important;
+		}
+
+		.placement-2 {
+			background-color: #8e91a7 !important;
+		}
+
+		.placement-3 {
+			background-color: #a86243 !important;
+		}
+
+		.placement-4 {
+			background-color: rgba(80, 80, 99, 0.8) !important;
+		}
+
+		.placement-5,
+		.placement-6,
+		.placement-7,
+		.placement-8 {
+			background: rgba(0, 0, 0, 0.6) !important;
+		}
+	</style>
+{% endblock %}
+
+{% block javascripts %}
+	<!-- BOOTSTRAP -->
+	<script type="text/javascript" src="{{ asset('js/bootstrap/bootstrap.js') }}"></script>
+
+	<script type="text/javascript">
+		(function getTftTracker() {
+			let xhr = new XMLHttpRequest();
+
+			xhr.open('GET', '{{ path('tft-tracker-api', { summonerName: summonerName }) }}');
+
+			xhr.onload = function () {
+				if (xhr.status === 200) {
+					let data = JSON.parse(xhr.responseText);
+
+					document.getElementById('emblem').src = '{{ asset('img/emblems/') }}' + 'Emblem_' + data.rank.split(' ')[0] + '.png';
+					document.getElementById('name').innerText = data.name;
+					document.getElementById('rank').innerText = data.rank;
+					document.getElementById('LP').innerText = data.lp + ' LP';
+					document.getElementById('totalWin').innerText = data.totalWin;
+					document.getElementById('totalLose').innerText = data.totalLose;
+					document.getElementById('w-l').innerText = data.win + '-' + data.lose;
+					document.getElementById('avg').innerText = data.avg;
+
+					data.placements.forEach((placement, index) => {
+						let element = document.getElementById('game-' + index);
+
+						let placementList = [
+							'placement-1',
+							'placement-2',
+							'placement-3',
+							'placement-4',
+							'placement-5',
+							'placement-6',
+							'placement-7',
+							'placement-8'
+						];
+
+						element.classList.add(...placementList);
+
+						placementList = placementList.filter(function (value) {
+							return value !== 'placement-' + placement;
+						});
+
+						element.classList.remove(...placementList);
+
+						element.innerText = placement;
+
+						element.parentNode.classList.remove('hide');
+					});
+				}
+			};
+
+			xhr.send();
+
+			setTimeout(getTftTracker, 60000);
+		})();
+	</script>
+{% endblock %}
+
+{% block body %}
+	<div class="fixed-top bg-darker" style="top: 6.4vw; left: 1.2vw; width: 19.2vw; height: 6.9vw;">
+		<div class="row">
+			<div class="col-lg-3 align-self-center">
+				<img id="emblem" class="img-thumbnail rounded-circle border-0 bg-darker mx-vw-3 my-vw-2 p-vw-2" style="max-width: 85% !important;"/>
+			</div>
+
+			<div class="col-lg-5 align-self-center">
+				<div class="row">
+					<strong id="name" class="text-light-cyan"></strong>
+				</div>
+
+				<div class="row">
+					<strong id="rank" class="text-peach-crayola"></strong>
+				</div>
+
+				<div class="row">
+					<strong id="LP" class="text-light-cyan"></strong>
+				</div>
+			</div>
+
+			<div class="col-lg-4">
+				<div class="row mt-vw-1">
+					<strong class="text-peach-crayola" style="font-size: 0.75vw;">Total
+						<span id="totalWin"></span>W -
+						<span id="totalLose"></span>L</strong>
+				</div>
+
+				<hr class="text-light-cyan m-vw-1">
+
+				<div class="row">
+					<strong class="text-light-cyan" style="font-size: 0.5vw;">This session</strong>
+				</div>
+
+				<div class="row">
+					<strong class="text-peach-crayola" style="font-size: 0.75vw;">W-L<span id="w-l" class="text-light-cyan float-end me-vw-2"></span></strong>
+				</div>
+
+				<div class="row">
+					<strong class="text-peach-crayola" style="font-size: 0.75vw;">Avg.<span id="avg" class="text-light-cyan float-end me-vw-2"></span></strong>
+				</div>
+			</div>
+		</div>
+
+		<nav aria-label="breadcrumb" class="mt-vw-2 px-vw-2">
+			<strong id="game-0" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-1" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-2" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-3" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-4" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-5" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-6" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-7" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-8" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-9" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-10" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-11" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-12" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-13" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-14" class="rounded px-vw-1 placement text-light-cyan"></strong>
+			<strong id="game-15" class="rounded px-vw-1 placement text-light-cyan"></strong>
+		</nav>
+	</div>
+{% endblock %}

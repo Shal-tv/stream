@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+	<script type="module" src="{{ asset('js/three/main.js') }}" id="three-main" data-filename="/img/scenes/stream-over.jpg"></script>
+{% endblock %}
+
+{% block body %}
+	<div class="row ms-vw-5 my-vw-5">
+		<!-- TITLE -->
+		<div class="col-12 d-flex justify-content-center">
+			<h6 class="glitch">SHAL</h6>
+		</div>
+	</div>
+
+	<!-- ALERT BOX -->
+	<div class="row my-vw-5 py-vw-5"></div>
+
+	<div class="row text-center my-vw-5">
+		<h6>FIN DU LIVE</h6>
+	</div>
+
+	<div class="row text-center my-vw-5 pb-vw-4">
+		<h6>A PLUS !</h6>
+	</div>
+
+	<div class="row mt-vw-5 pt-vw-5 justify-content-center">
+		<div class="col-9">
+			<div class="row">
+				<!-- SONG -->
+				<div class="offset-4 col-4">
+					<div class="bg-dark shadow-white" style="height: 4.24vw;">
+						<div class="border-gradient h-100"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

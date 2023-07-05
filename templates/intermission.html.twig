@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+	<script type="module" src="{{ asset('js/three/main.js') }}" id="three-main" data-filename="/img/scenes/intermission.jpg"></script>
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-9">
+			<div class="row pt-vw-4">
+				<!-- SONG -->
+				<div class="offset-2 col-4 mt-vw-4 mb-vw-4">
+					<div class="bg-dark shadow-white" style="height: 4.24vw;">
+						<div class="border-gradient h-100"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-vw-4 px-vw-4">
+				<!-- SCENE -->
+				<div style="height: 40.1vw;">
+					<div class="bg-dark shadow-white h-100">
+						<div class="border-gradient h-100"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-3">
+			<div class="row py-vw-4 pe-vw-4">
+				<!-- WEBCAM -->
+				<div style="height: 12.85vw;">
+					<div class="bg-dark shadow-white h-100">
+						<div class="border-gradient h-100"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row pt-vw-4 pe-vw-4">
+				<!-- CHAT -->
+				<div style="height: 33vw;">
+					<div class="bg-dark shadow-white h-100">
+						<div class="border-gradient h-100"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

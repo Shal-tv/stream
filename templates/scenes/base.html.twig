@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-100">
+	<head>
+		<meta charset="UTF-8">
+
+		<title></title>
+
+		<!-- BOOTSTRAP -->
+		<link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.css') }}">
+
+		<!-- CUSTOM STYLES -->
+		<link rel="stylesheet" href="{{ asset('css/stream-style.css') }}">
+
+		{% block stylesheets %}{% endblock %}
+	</head>
+
+	<body class="d-flex flex-column h-100 bg-transparent">
+		<main class="flex-shrink-0">
+			<div class="container-fluid">
+				{% block body %}{% endblock %}
+			</div>
+		</main>
+
+		<!-- BOOTSTRAP -->
+		<script type="text/javascript" src="{{ asset('js/bootstrap/bootstrap.js') }}"></script>
+
+		{% block javascripts %}{% endblock %}
+	</body>
+</html>

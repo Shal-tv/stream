@@ -1,0 +1,8 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        SPOTIFY_REFRESH_TOKEN: AQDSbTNktdJSlg_SU9qGap27KF_qb-kyr1zJ_f3rwu3M1IAaGWb6sa0rkYcpZtIlT6IDii8kr0-3GI1N2t3nyOxBWLyJqM5_G1EjwfOGookbcMgTqyXG6_L927oP_RPrSjo
+
+when@test:
+    twig:
+        strict_variables: true

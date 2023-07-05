@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-100">
+	<head>
+		<meta charset="UTF-8">
+
+		<title></title>
+
+		<!-- BOOTSTRAP -->
+		<link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.css') }}">
+
+		<!-- CUSTOM STYLES -->
+		<link rel="stylesheet" href="{{ asset('css/stream-style.css') }}">
+
+		{% block stylesheets %}{% endblock %}
+
+		<style>
+			#container {
+				position: fixed;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				z-index: -1;
+			}
+		</style>
+	</head>
+
+	<body class="overflow-hidden">
+		<main>
+			<div id="container"></div>
+
+			<div class="container-fluid h-100 w-100 bg-dark position-absolute">
+				{% block body %}{% endblock %}
+			</div>
+		</main>
+
+		{{ include('_footer.html.twig') }}
+
+		<!-- BOOTSTRAP -->
+		<script type="text/javascript" src="{{ asset('js/bootstrap/bootstrap.js') }}"></script>
+
+		<script>
+			(function printDateTime() {
+				let currentDate = new Date();
+
+				document.getElementById('date').innerHTML = currentDate.toLocaleDateString('fr-FR', {
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit'
+				});
+
+				document.getElementById('time').innerHTML = ('0' + currentDate.getHours()).slice(-2) + ':' + ('0' + currentDate.getMinutes()).slice(-2);
+
+				setTimeout(printDateTime, 1000);
+			})();
+		</script>
+
+		{% block javascripts %}{% endblock %}
+	</body>
+</html>

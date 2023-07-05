@@ -1,0 +1,81 @@
+{% block stylesheets %}
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.css') }}">
+
+	<!-- CUSTOM STYLES -->
+	<link rel="stylesheet" href="{{ asset('css/stream-style.css') }}">
+
+	<style>
+		#now-playing {
+			white-space: nowrap;
+			overflow: hidden;
+			max-width: 57%;
+		}
+
+		#artist {
+			font-size: large;
+		}
+
+		#song {
+			font-size: x-large;
+		}
+	</style>
+{% endblock %}
+
+{% block javascripts %}
+	<!-- BOOTSTRAP -->
+	<script type="text/javascript" src="{{ asset('js/bootstrap/bootstrap.js') }}"></script>
+
+	<script type="text/javascript">
+		let access_token = null;
+		let refresh_token = '{{ SPOTIFY_REFRESH_TOKEN }}';
+
+		(function getSpotifyNowPlaying() {
+			let xhr = new XMLHttpRequest();
+
+			xhr.open('POST', '{{ path('spotify-now_playing') }}');
+
+			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+			xhr.onload = function () {
+				if (xhr.status === 200) {
+					let data = JSON.parse(xhr.responseText);
+
+					document.getElementById('artist').innerText = data.artist;
+					document.getElementById('song').innerText = data.song;
+				} else {
+					let xhr = new XMLHttpRequest();
+
+					xhr.open('POST', '{{ path('spotify-refresh_token') }}');
+
+					xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+					xhr.onload = function () {
+						if (xhr.status === 200) {
+							let data = JSON.parse(xhr.responseText);
+
+							access_token = data.accessToken;
+						}
+					};
+
+					xhr.send('refresh_token=' + refresh_token);
+				}
+			};
+
+			xhr.send('access_token=' + access_token);
+
+			setTimeout(getSpotifyNowPlaying, 1000);
+		})();
+	</script>
+{% endblock %}
+
+{% block body %}
+	<div class="h-100">
+		<img src="{{ asset('img/icons/music.png') }}" alt="music-icon" style="height: 10vw;" class="mt-vw-4 position-absolute"/>
+		<div id="now-playing" class="position-absolute mt-vw-5" style="margin-left: 12vw;">
+			<b><span id="artist" class="text-peach-crayola"></span></b>
+			<br>
+			<b><span id="song" class="text-light-cyan mt-vw-3"></span></b>
+		</div>
+	</div>
+{% endblock %}

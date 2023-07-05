@@ -1,0 +1,18 @@
+{% block stylesheets %}
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.css') }}">
+
+	<!-- CUSTOM STYLES -->
+	<link rel="stylesheet" href="{{ asset('css/stream-style.css') }}">
+{% endblock %}
+
+{% block body %}
+	<div class="bg-transparent">
+		<h6 class="glitch position-absolute m-vw-5 p-vw-5">{{ text|upper }}</h6>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<!-- BOOTSTRAP -->
+	<script type="text/javascript" src="{{ asset('js/bootstrap/bootstrap.js') }}"></script>
+{% endblock %}
