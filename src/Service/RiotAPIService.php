@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\DTO\Riot\LeagueEntryDTO;
+use App\DTO\Riot\LeaguesDTO;
 use App\DTO\Riot\MatchDTO;
 use App\DTO\Riot\SummonerDTO;
 use App\Helper\TFTTrackerHelper;
@@ -50,9 +51,11 @@ final class RiotAPIService
     {
         $summoner = $this->summonerAPI($summonerName);
 
-        $league = $this->leagueAPI($summoner->getId());
+        $leagues = $this->leagueAPI($summoner->getId());
 
-        $tracker = $this->helper->createTracker($summonerName, $league);
+        $soloLeague = $this->findSoloLeague($leagues);
+
+        $tracker = $this->helper->createTracker($summonerName, $soloLeague);
 
         // Récupération des ID des 16 derniers matchs
         $matches = $this->matchesAPI($summoner->getPuuid(), 16);
@@ -93,6 +96,22 @@ final class RiotAPIService
     }
 
     /**
+     * @param LeagueEntryDTO[]  $leagues
+     *
+     * @return LeagueEntryDTO|null
+     */
+    private function findSoloLeague(array $leagues) : ?LeagueEntryDTO
+    {
+        foreach ($leagues as $league) {
+            if ($league->getQueueType() === 'RANKED_TFT') {
+                return $league;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @param MatchDTO  $match1
      * @param MatchDTO  $match2
      *
@@ -126,22 +145,22 @@ final class RiotAPIService
     /**
      * @param string  $summonerID
      *
-     * @return LeagueEntryDTO|null
+     * @return LeagueEntryDTO[]|null
      *
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    private function leagueAPI(string $summonerID) : ?LeagueEntryDTO
+    private function leagueAPI(string $summonerID) : ?array
     {
         $response = $this->callAPI('https://euw1.api.riotgames.com/tft/league/v1/entries/by-summoner/' . $summonerID);
 
-        if (trim($response->getContent(), '[]') === '') {
+        if ($response->getContent() === '') {
             return null;
         }
 
-        return $this->serializer->deserialize(trim($response->getContent(), '[]'), LeagueEntryDTO::class, 'json');
+        return $this->serializer->deserialize($response->getContent(), LeagueEntryDTO::class . '[]', 'json');
     }
 
     /**
