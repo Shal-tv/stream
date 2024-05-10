@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\DTO\Riot\LeagueEntryDTO;
-use App\DTO\Riot\LeaguesDTO;
 use App\DTO\Riot\MatchDTO;
 use App\DTO\Riot\SummonerDTO;
 use App\Helper\TFTTrackerHelper;
@@ -23,7 +22,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  *
  * @package App\Service
  */
-final class RiotAPIService
+final readonly class RiotAPIService
 {
 
     /**
@@ -34,9 +33,9 @@ final class RiotAPIService
      * @param SerializerInterface  $serializer
      */
     public function __construct(
-        private readonly TFTTrackerHelper $helper,
-        private readonly HttpClientInterface $client,
-        private readonly SerializerInterface $serializer
+        private TFTTrackerHelper $helper,
+        private HttpClientInterface $client,
+        private SerializerInterface $serializer
     ) {
     }
 
