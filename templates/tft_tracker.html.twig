@@ -55,7 +55,7 @@
 		(function getTftTracker() {
 			let xhr = new XMLHttpRequest();
 
-			xhr.open('GET', '{{ path('tft-tracker-api', { summonerName: summonerName }) }}');
+			xhr.open('GET', '{{ path('tft-tracker-api', { summonerName: summonerName, summonerTag: summonerTag }) }}');
 
 			xhr.onload = function () {
 				if (xhr.status === 200) {

@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\DTO\Riot\LeagueEntryDTO;
 use App\DTO\Riot\MatchDTO;
+use App\DTO\Riot\AccountDTO;
 use App\DTO\Riot\SummonerDTO;
 use App\Helper\TFTTrackerHelper;
 use DateTime;
@@ -41,14 +42,21 @@ final readonly class RiotAPIService
 
     /**
      * @param string  $summonerName
+     * @param string  $summonerTag
      *
      * @return string
      *
-     * @throws ExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    public function tftTracker(string $summonerName) : string
+    public function tftTracker(string $summonerName, string $summonerTag) : string
     {
-        $summoner = $this->summonerAPI($summonerName);
+        $account = $this->accountAPI($summonerName, $summonerTag);
+
+        $summoner = $this->summonerAPI($account->getPuuid());
 
         $leagues = $this->leagueAPI($summoner->getId());
 
@@ -126,17 +134,35 @@ final readonly class RiotAPIService
 
     /**
      * @param string  $summonerName
+     * @param string  $summonerTag
      *
-     * @return SummonerDTO
+     * @return AccountDTO
      *
-     * @throws TransportExceptionInterface
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    private function summonerAPI(string $summonerName) : SummonerDTO
+    private function accountAPI(string $summonerName, string $summonerTag) : AccountDTO
     {
-        $response = $this->callAPI('https://euw1.api.riotgames.com/tft/summoner/v1/summoners/by-name/' . $summonerName);
+        $response = $this->callAPI('https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/' . $summonerName . '/' . $summonerTag);
+
+        return $this->serializer->deserialize($response->getContent(), AccountDTO::class, 'json');
+    }
+
+    /**
+     * @param string  $puuid
+     *
+     * @return SummonerDTO
+     *
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    private function summonerAPI(string $puuid) : SummonerDTO
+    {
+        $response = $this->callAPI('https://euw1.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/' . $puuid);
 
         return $this->serializer->deserialize($response->getContent(), SummonerDTO::class, 'json');
     }

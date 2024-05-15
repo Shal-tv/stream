@@ -6,7 +6,7 @@ use App\Service\RiotAPIService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 
 /**
@@ -30,10 +30,10 @@ class RiotAPIController extends AbstractController
     /**
      * @throws ExceptionInterface
      */
-    #[Route(path: '/tft-tracker-api/{summonerName}', name: 'tft-tracker-api', methods: ['GET'])]
-    public function tftTrackerAPIAction(string $summonerName) : Response
+    #[Route(path: '/tft-tracker-api/{summonerName}/{summonerTag}', name: 'tft-tracker-api', methods: ['GET'])]
+    public function tftTrackerAPIAction(string $summonerName, string $summonerTag) : Response
     {
-        return JsonResponse::fromJsonString($this->riotAPIService->tftTracker($summonerName));
+        return JsonResponse::fromJsonString($this->riotAPIService->tftTracker($summonerName, $summonerTag));
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Helper;
 
 use App\DTO\Riot\LeagueEntryDTO;
 use App\DTO\Riot\ParticipantDTO;
+use App\DTO\Riot\AccountDTO;
 use App\DTO\Riot\SummonerDTO;
 use App\Model\TFTTracker;
 
@@ -46,9 +47,9 @@ final class TFTTrackerHelper
     }
 
     /**
+     * @param TFTTracker      $tracker
      * @param ParticipantDTO  $participant
      * @param SummonerDTO     $summoner
-     * @param TFTTracker      $tracker
      *
      * @return void
      */

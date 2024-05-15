@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Class ScenesController
@@ -27,10 +27,10 @@ class ScenesController extends AbstractController
         return $this->render('intermission.html.twig');
     }
 
-    #[Route(path: '/TFT/{summonerName}', name: 'scenes-TFT', methods: ['GET'])]
-    public function TFTAction(string $summonerName) : Response
+    #[Route(path: '/TFT/{summonerName}/{summonerTag}', name: 'scenes-TFT', methods: ['GET'])]
+    public function TFTAction(string $summonerName, string $summonerTag) : Response
     {
-        return $this->render('scenes/scene_TFT.html.twig', array('summonerName' => $summonerName));
+        return $this->render('scenes/scene_TFT.html.twig', array('summonerName' => $summonerName, 'summonerTag' => $summonerTag));
     }
 
     #[Route(path: '/waiting-screen', name: 'waiting-screen', methods: ['GET'])]
