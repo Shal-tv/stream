@@ -74,14 +74,13 @@ final class SpotifyAPIService
             'POST',
             'https://accounts.spotify.com/api/token',
             array(
-                'Content-Type' => 'application/x-www-form-urlencoded'
+                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Authorization' => 'Basic ' . base64_encode($_ENV['SPOTIFY_CLIENT_ID'] . ':' . $_ENV['SPOTIFY_SECRET_ID'])
             ),
             array(
                 'grant_type' => 'authorization_code',
                 'code' => $_ENV['SPOTIFY_CODE'],
                 'redirect_uri' => $redirectURI,
-                'client_id' => $_ENV['SPOTIFY_CLIENT_ID'],
-                'client_secret' => $_ENV['SPOTIFY_SECRET_ID']
             )
         );
 
@@ -125,13 +124,12 @@ final class SpotifyAPIService
             'POST',
             'https://accounts.spotify.com/api/token',
             array(
-                'Content-Type' => 'application/x-www-form-urlencoded'
+                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Authorization' => 'Basic ' . base64_encode($_ENV['SPOTIFY_CLIENT_ID'] . ':' . $_ENV['SPOTIFY_SECRET_ID'])
             ),
             array(
                 'grant_type' => 'refresh_token',
                 'refresh_token' => $refreshToken,
-                'client_id' => $_ENV['SPOTIFY_CLIENT_ID'],
-                'client_secret' => $_ENV['SPOTIFY_SECRET_ID']
             )
         );
 

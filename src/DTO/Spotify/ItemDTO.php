@@ -71,9 +71,9 @@ final class ItemDTO
     private int $popularity;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $previewUrl;
+    private ?string $previewUrl;
 
     /**
      * @var int
@@ -316,17 +316,17 @@ final class ItemDTO
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPreviewUrl() : string
+    public function getPreviewUrl() : ?string
     {
         return $this->previewUrl;
     }
 
     /**
-     * @param string  $previewUrl
+     * @param string|null  $previewUrl
      */
-    public function setPreviewUrl(string $previewUrl) : void
+    public function setPreviewUrl(?string $previewUrl) : void
     {
         $this->previewUrl = $previewUrl;
     }
